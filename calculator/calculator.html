@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:linear-gradient(45deg, #0a0a0a, #3a4452);
+}
+.calculator{
+    border: 1px solid #717377;
+    padding: 20px;
+    border-radius: 16px;
+    background: transparent;
+    box-shadow: 0px 3px 15px rgba(113, 115, 119, 1);
+}
+input{
+    width: 320px;
+    border: none;
+    padding: 24px;
+    margin: 10px;
+    background: transparent;
+    box-shadow: 0px 3px 15px rgba(84, 84, 81, 0.1);
+    font-size: 40px;
+    text-align: right;
+    cursor: pointer;
+    color: #fff;
+}
+input::placeholder{
+    color: #fff;
+
+}
+button{
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    font-size: 20px;
+    box-sizing: -8px -8px 15px rgba(255, 255 , 255, 0.1);
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" placeholder="0" id="inputBox">
+        <div>
+            <button  class="operator" style="color: yellow;">AC</button>
+            <button  class="operator" style="color: yellow;">DEL</button>
+            <button class="operator" style="color: yellow;">%</button>
+            <button class="operator" style="color:yellow;">/</button>
+        </div>
+        <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator" style="color: green;">*</button>
+        </div>
+        <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            
+            <button class="operator" style="color: green;">-</button>
+        </div>
+        <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator" style="color: green;">+</button>
+        </div>
+        <div>
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equal" style="background-color: #fb7c14;">=</button>
+        </div>
+    </div>
+    <script>
+        let input=document.getElementById('inputBox');  // here we take value from html using id method
+let buttons = document.querySelectorAll('button');  // all button ke liye select kar liya hai 
+
+let string="";  // khali string li hai jisme result ki value store hogi 
+let arr=Array.from(buttons); // ek array lege jisme ki jo bhi hum button se input kare woh array main store ho jaae 
+
+arr.forEach(button => {  //hum sare buttons ko leke ek function teyar karege
+    button.addEventListener('click', (e) => {  // yha hum ek eventlistner lagege jha par hum uski instruction dege ki kya karna hai 
+        if(e.target.innerHTML == "="){  //yha inner.html full html ko show karega 
+            string = eval(string);//js main ek eval function hi sare math ke operation ko perform kar dega 
+            input.value=string;  // result value ko hum string main store karege
+        }
+        else if(e.target.innerHTML == 'AC'){ //pehli constion hai agar hum html main AC par click karte hai toh sting empty ho jaae 
+            string="";
+            input.value = string;
+        }
+        else if  (e.target.innerHTML == 'DEL') {//dusri condition hai jab bhi um delet kare toh joh humne array banayi hai bha par usme joh aakhri element insert hua hai woh delete ho jaae
+                string = string.substring(0, string.length-1); 
+                input.value=string;
+            }
+        else{
+        string += e.target.innerHTML; //agar hum sidha calculate karge toh string main add hoke function ke according hi apne result ko show kare 
+        input.value=string;
+        }
+    })
+})
+    </script>
+</body>
+</html>
